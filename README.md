@@ -1,0 +1,51 @@
+
+**📚 ENAA – Plateforme de Suivi des Compétences**
+
+Plateforme Web de gestion et de suivi d’acquisition des compétences pédagogiques des apprenants de l'ENAA, basée sur une architecture microservices. Cette application permet aux formateurs de créer des briefs, de les associer à des compétences, de valider les rendus des apprenants, et d’assurer un suivi détaillé des compétences acquises.
+
+🚀 **Fonctionnalités principales**
+
+🎯 **Brief-Service**
+
+Création d’un brief pédagogique (formateur)
+
+Association de compétences à un brief
+
+👨‍🎓 **Apprenant-Service**
+
+Inscription d’un apprenant
+
+Dépôt de rendus pour un brief
+
+Consultation des rendus et des compétences validées
+
+✅ **Validation-Service**
+
+Validation d’une compétence d’un apprenant sur un brief (formateur)
+
+Visualisation des validations de compétences (admin/formateur)
+
+État global des compétences validées pour chaque apprenant
+
+**🛠️ Technologies**
+
+Backend : Spring Boot, Spring Data JPA
+
+Base de données : MySQL / PostgreSQL (selon le service)
+
+Communication inter-services : RestTemplate ou Feign Client
+
+Tests : JUnit
+
+Conteneurisation : Docker & Docker Compose
+
+
+
+
+**CONCEPTION UML**
+
+**Diagramme de classe**
+![diagramme de calsse](UML/Capture%20d'écran%202025-07-07%20151244.png)
+
+**Diagramme de cas d'utilisation**
+![diagramme use case](UML/Capture%20d'écran%202025-07-08%20094810.png)
