@@ -13,14 +13,18 @@ public class Validation {
     private StatutCompetence statut;
     private Long apprenantId;
     private Long competenceId;
+    private Long briefId;
+    private Long renduId;
 
 
     public Validation() {}
 
-    public Validation(StatutCompetence statut, Long apprenantId, Long competenceId) {
+    public Validation(StatutCompetence statut, Long apprenantId, Long competenceId, Long briefId, Long renduId) {
         this.statut = statut;
         this.apprenantId = apprenantId;
         this.competenceId = competenceId;
+        this.briefId = briefId;
+        this.renduId = renduId;
     }
 
     
@@ -35,4 +39,10 @@ public class Validation {
 
     public Long getCompetenceId() { return competenceId; }
     public void setCompetenceId(Long competenceId) { this.competenceId = competenceId; }
+
+    public Long getBriefId() { return briefId; }
+    public void setBriefId(Long briefId) { this.briefId = briefId; }
+
+    public Long getRenduId() { return renduId; }
+    public void setRenduId(Long renduId) { this.renduId = renduId; }
 }
