@@ -2,11 +2,11 @@ package com.enaaskills.apprenantservice.dtos;
 
 import java.time.LocalDate;
 
-public record RenduDto(
+public record RenduResponseDto(
         Long id,
-        LocalDate dateDepot,
+        Long idBrief,
         String contenu,
-        Long apprenantId,
-        Long idBrief
+        LocalDate dateDepot,
+        Long idApprenant
 ) {
 }

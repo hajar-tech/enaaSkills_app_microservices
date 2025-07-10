@@ -39,4 +39,10 @@ public class ApprenantService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public ApprenantDto getById (Long id){
+        Apprenant apprenant = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Apprenant introuvable avec l'id " + id));
+        return mapper.toDto(apprenant);
+    }
 }

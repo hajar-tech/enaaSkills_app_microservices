@@ -25,4 +25,9 @@ public class ApprenantController {
     public List<ApprenantDto> list() {
         return apprenantService.getAll();
     }
+
+    @GetMapping("/{id}")
+    public  ApprenantDto getById(@PathVariable Long id){
+       return apprenantService.getById(id);
+    }
 }
