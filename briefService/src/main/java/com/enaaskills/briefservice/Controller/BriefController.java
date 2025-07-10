@@ -1,6 +1,7 @@
 package com.enaaskills.briefservice.Controller;
 
 import com.enaaskills.briefservice.DTO.BriefDTO;
+import com.enaaskills.briefservice.DTO.BriefResponseDTO;
 import com.enaaskills.briefservice.Mapper.BriefMapper;
 import com.enaaskills.briefservice.Model.Brief;
 import com.enaaskills.briefservice.Model.BriefCompetence;
@@ -21,7 +22,7 @@ public class BriefController {
         this.briefService=briefService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Brief> createBrief(@RequestBody Brief brief){
         return ResponseEntity.ok(briefService.creatBrief(brief));
     }
@@ -31,13 +32,25 @@ public class BriefController {
         return ResponseEntity.ok(briefService.getAllBriefs());
     }
 
+
+    //getAllBriefs
+    @GetMapping("/dto")
+    public ResponseEntity<List<BriefResponseDTO>> getAllBriefsDTO(){
+        List<Brief> briefs=briefService.getAllBriefs();
+        List<BriefResponseDTO> response = briefs.stream()
+                .map(BriefMapper::toResponseDTO)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
+
+
     @PostMapping("/{id}/add-competence")
     public ResponseEntity<BriefCompetence> addCompetence(@PathVariable Long id, @RequestBody Map<String, Long> body){
         Long competenceId = body.get("competenceId");
         return ResponseEntity.ok(briefService.associeCompetence(id, competenceId));
     }
 
-    @PostMapping
+    @PostMapping("/addBriefDto")
     public ResponseEntity<BriefDTO> createBriefDTO(@RequestBody BriefDTO briefDTO){
         Brief entity = BriefMapper.toEntity(briefDTO);
         Brief saved = briefService.creatBrief(entity);

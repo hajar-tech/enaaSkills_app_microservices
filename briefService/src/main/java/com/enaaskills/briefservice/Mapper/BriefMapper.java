@@ -1,6 +1,7 @@
 package com.enaaskills.briefservice.Mapper;
 
 import com.enaaskills.briefservice.DTO.BriefDTO;
+import com.enaaskills.briefservice.DTO.BriefResponseDTO;
 import com.enaaskills.briefservice.Model.Brief;
 
 public class BriefMapper {
@@ -20,5 +21,14 @@ public class BriefMapper {
                 brief.getDateLimit()
         );
 
+    }
+
+    public static BriefResponseDTO toResponseDTO(Brief brief) {
+        return new BriefResponseDTO(
+                brief.getId(),
+                brief.getTitle(),
+                brief.getDescription(),
+                brief.getDateLimit()
+        );
     }
 }
