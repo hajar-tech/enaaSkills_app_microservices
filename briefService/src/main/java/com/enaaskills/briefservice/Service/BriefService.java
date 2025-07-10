@@ -41,4 +41,8 @@ public class BriefService {
 
     }
 
+    public Brief createBriefDTO(Brief brief) {
+        return briefRepository.save(brief);
+    }
+
 }
