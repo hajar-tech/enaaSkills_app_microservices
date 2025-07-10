@@ -6,6 +6,9 @@ import com.enaaskills.apprenantservice.models.Apprenant;
 import com.enaaskills.apprenantservice.repositories.ApprenantRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ApprenantService {
     private final ApprenantRepository repo;
@@ -24,5 +27,16 @@ public class ApprenantService {
         apprenant.setEmail(dto.email());
         return mapper.toDto(repo.save(apprenant));
 
+    }
+
+    public List<ApprenantDto> getAll() {
+        return repo.findAll().stream()
+                .map(apprenant -> new ApprenantDto(
+                        apprenant.getId(),
+                        apprenant.getNom(),
+                        apprenant.getPrenom(),
+                        apprenant.getEmail()
+                ))
+                .collect(Collectors.toList());
     }
 }
