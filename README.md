@@ -49,3 +49,15 @@ Conteneurisation : Docker & Docker Compose
 
 **Diagramme de cas d'utilisation**
 ![diagramme use case](UML/Capture%20d'écran%202025-07-08%20094810.png)
+
+
+**test la validation sur swagger**
+
+http://localhost:8080/swagger-ui/index.html#/
+
+
+**test la validation sur postman**
+
+
+https://.postman.co/workspace/My-Workspace~2be7e78b-294c-4e8d-8fab-bf07529f7a9c/collection/44577571-8e6f8ff7-b29e-4cf9-9197-36b4b962c643?action=share&creator=44577571
+
