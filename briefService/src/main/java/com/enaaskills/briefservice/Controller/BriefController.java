@@ -32,6 +32,11 @@ public class BriefController {
         return ResponseEntity.ok(briefService.getAllBriefs());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Brief> getBriefById(@PathVariable Long id){
+        return ResponseEntity.ok(briefService.getBrief(id));
+
+    }
 
     //getAllBriefs
     @GetMapping("/dto")
