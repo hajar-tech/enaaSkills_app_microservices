@@ -6,6 +6,7 @@ public record RenduRequestDto (
     Long idBrief,
     Long idApprenant,
     String contenu,
+    String description,
     LocalDate dateDepot
 ){
 }
