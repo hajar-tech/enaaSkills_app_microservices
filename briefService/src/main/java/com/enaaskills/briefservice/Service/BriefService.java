@@ -45,4 +45,11 @@ public class BriefService {
         return briefRepository.save(brief);
     }
 
+    public Brief getBrief(Long id) {
+        return briefRepository.findById(id).orElseThrow(()->{
+            return  new RuntimeException("Brief not found");
+        });
+
+    }
+
 }
