@@ -1,7 +1,7 @@
 package com.enaaskills.validationservice.controller;
 
-import com.enaaskills.validationservice.model.Validation;
-import com.enaaskills.validationservice.repository.ValidationRepository;
+import com.enaaskills.validationservice.model.ValidationDTO;
+import com.enaaskills.validationservice.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,46 +13,45 @@ import java.util.Optional;
 public class ValidationController {
 
     @Autowired
-    private ValidationRepository validationRepository;
+    private ValidationService validationService;
 
     @GetMapping
-    public List<Validation> getAllValidations() {
-        return validationRepository.findAll();
+    public List<ValidationDTO> getAllValidations() {
+        return validationService.getAllValidations();
     }
 
     @GetMapping("/{id}")
-    public Optional<Validation> getValidationById(@PathVariable Long id) {
-        return validationRepository.findById(id);
+    public Optional<ValidationDTO> getValidationById(@PathVariable Long id) {
+        return validationService.getValidationById(id);
     }
 
     @PostMapping
-    public Validation createValidation(@RequestBody Validation validation) {
-        return validationRepository.save(validation);
+    public ValidationDTO createValidation(@RequestBody ValidationDTO validationDTO) {
+        return validationService.createValidation(validationDTO);
     }
 
     @PutMapping("/{id}")
-    public Validation updateValidation(@PathVariable Long id, @RequestBody Validation validationDetails) {
-        Validation validation = validationRepository.findById(id).orElseThrow();
-        validation.setStatut(validationDetails.getStatut());
-        validation.setApprenantId(validationDetails.getApprenantId());
-        validation.setCompetenceId(validationDetails.getCompetenceId());
-        validation.setBriefId(validationDetails.getBriefId());
-        validation.setRenduId(validationDetails.getRenduId());
-        return validationRepository.save(validation);
+    public ValidationDTO updateValidation(@PathVariable Long id, @RequestBody ValidationDTO validationDTO) {
+        return validationService.updateValidation(id, validationDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteValidation(@PathVariable Long id) {
+        validationService.deleteValidation(id);
     }
 
     @GetMapping("/apprenant/{apprenantId}")
-    public List<Validation> getValidationsByApprenant(@PathVariable Long apprenantId) {
-        return validationRepository.findByApprenantId(apprenantId);
+    public List<ValidationDTO> getValidationsByApprenant(@PathVariable Long apprenantId) {
+        return validationService.getValidationsByApprenant(apprenantId);
     }
 
     @GetMapping("/brief/{briefId}")
-    public List<Validation> getValidationsByBrief(@PathVariable Long briefId) {
-        return validationRepository.findByBriefId(briefId);
+    public List<ValidationDTO> getValidationsByBrief(@PathVariable Long briefId) {
+        return validationService.getValidationsByBrief(briefId);
     }
 
     @GetMapping("/competence/{competenceId}")
-    public List<Validation> getValidationsByCompetence(@PathVariable Long competenceId) {
-        return validationRepository.findByCompetenceId(competenceId);
+    public List<ValidationDTO> getValidationsByCompetence(@PathVariable Long competenceId) {
+        return validationService.getValidationsByCompetence(competenceId);
     }
 }
