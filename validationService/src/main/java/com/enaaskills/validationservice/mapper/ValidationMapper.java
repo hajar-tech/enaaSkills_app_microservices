@@ -1,8 +1,4 @@
-package com.enaaskills.validationservice.mapper;
-
-import com.enaaskills.validationservice.dto.ValidationDTO;
-import com.enaaskills.validationservice.model.StatutCompetence;
-import com.enaaskills.validationservice.model.Validation;
+package com.enaaskills.validationservice.model;
 
 public class ValidationMapper {
     public static ValidationDTO toDTO(Validation validation) {

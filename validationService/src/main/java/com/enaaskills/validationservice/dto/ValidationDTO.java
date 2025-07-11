@@ -1,4 +1,4 @@
-package com.enaaskills.validationservice.dto;
+package com.enaaskills.validationservice.model;
 
 public class ValidationDTO {
     private Long id;
