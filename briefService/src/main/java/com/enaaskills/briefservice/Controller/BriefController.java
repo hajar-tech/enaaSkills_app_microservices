@@ -61,4 +61,12 @@ public class BriefController {
         Brief saved = briefService.creatBrief(entity);
         return ResponseEntity.ok(BriefMapper.toDTO(saved));
     }
+
+    //post brief with skills
+
+    @PostMapping("/with-competences")
+    public ResponseEntity<BriefResponseDTO> createWithCompetences(@RequestBody BriefDTO briefDTO){
+        Brief saved = briefService.createBriefWithCompetences(briefDTO);
+        return ResponseEntity.ok(BriefMapper.toResponseDTO(saved));
+    }
 }
