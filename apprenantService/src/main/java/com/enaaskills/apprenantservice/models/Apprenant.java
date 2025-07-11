@@ -1,5 +1,6 @@
 package com.enaaskills.apprenantservice.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Apprenant {
     private String email;
 
     @OneToMany(mappedBy = "apprenant", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Rendu> rendus = new ArrayList<>();
 
     public Long getId() {
