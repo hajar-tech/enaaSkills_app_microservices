@@ -49,14 +49,9 @@ public class ValidationService {
     }
 
     public ValidationDTO createValidation(ValidationDTO dto) {
-        if (!apprenantExists(dto.getApprenantId())) {
-            throw new RuntimeException("Apprenant not found with id: " + dto.getApprenantId());
-        }
-        if (!briefExists(dto.getBriefId())) {
-            throw new RuntimeException("Brief not found with id: " + dto.getBriefId());
-        }
-        if (!competenceExists(dto.getCompetenceId())) {
-            throw new RuntimeException("Competence not found with id: " + dto.getCompetenceId());
+        if (validationRepository.existsByApprenantIdAndCompetenceIdAndBriefId(
+                dto.getApprenantId(), dto.getCompetenceId(), dto.getBriefId())) {
+            throw new RuntimeException("Validation already exists for this apprenant, competence, and brief.");
         }
         Validation validation = ValidationMapper.toEntity(dto);
         Validation saved = validationRepository.save(validation);
@@ -66,15 +61,6 @@ public class ValidationService {
     public ValidationDTO updateValidation(Long id, ValidationDTO dto) {
         Validation validation = validationRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Validation not found with id: " + id));
-        if (!apprenantExists(dto.getApprenantId())) {
-            throw new RuntimeException("Apprenant not found with id: " + dto.getApprenantId());
-        }
-        if (!briefExists(dto.getBriefId())) {
-            throw new RuntimeException("Brief not found with id: " + dto.getBriefId());
-        }
-        if (!competenceExists(dto.getCompetenceId())) {
-            throw new RuntimeException("Competence not found with id: " + dto.getCompetenceId());
-        }
         validation.setStatut(dto.getStatut() != null ? StatutCompetence.valueOf(dto.getStatut()) : null);
         validation.setApprenantId(dto.getApprenantId());
         validation.setCompetenceId(dto.getCompetenceId());
