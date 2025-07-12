@@ -8,4 +8,5 @@ public interface ValidationRepository extends JpaRepository<Validation, Long> {
     List<Validation> findByApprenantId(Long apprenantId);
     List<Validation> findByBriefId(Long briefId);
     List<Validation> findByCompetenceId(Long competenceId);
+    boolean existsByApprenantIdAndCompetenceIdAndBriefId(Long apprenantId, Long competenceId, Long briefId);
 }
