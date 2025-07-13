@@ -1,37 +1,96 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql-container
-    restart: always
-    ports:
-      - "3307:3306"
+    container_name: enaaskills_mysql
     environment:
-      MYSQL_DATABASE: validationservice
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: verysecret
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: enaaskills_db
+      MYSQL_USER: enaaskills_user
+      MYSQL_PASSWORD: enaaskills_pass
+    ports:
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-pverysecret"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - enaaskills_network
 
-  springboot:
-    build: ..
-    container_name: springboot-app
+  apprenant-service:
+    build:
+      context: ./apprenantService
+      dockerfile: Dockerfile
+    container_name: enaaskills_apprenant_service
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/enaaskills_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: enaaskills_user
+      SPRING_DATASOURCE_PASSWORD: enaaskills_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
+    networks:
+      - enaaskills_network
+
+  brief-service:
+    build:
+      context: ./briefService
+      dockerfile: Dockerfile
+    container_name: enaaskills_brief_service
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/enaaskills_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: enaaskills_user
+      SPRING_DATASOURCE_PASSWORD: enaaskills_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+    depends_on:
+      - mysql
+    networks:
+      - enaaskills_network
+
+  competence-service:
+    build:
+      context: ./competenceService
+      dockerfile: Dockerfile
+    container_name: enaaskills_competence_service
+    ports:
+      - "8083:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/enaaskills_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: enaaskills_user
+      SPRING_DATASOURCE_PASSWORD: enaaskills_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+    depends_on:
+      - mysql
+    networks:
+      - enaaskills_network
+
+  validation-service:
+    build:
+      context: ./validationService
+      dockerfile: Dockerfile
+    container_name: enaaskills_validation_service
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/validationservice
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: secret
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/enaaskills_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: enaaskills_user
+      SPRING_DATASOURCE_PASSWORD: enaaskills_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      APPRENANT_SERVICE_URL: http://apprenant-service:8080/api/apprenants
+      BRIEF_SERVICE_URL: http://brief-service:8080/api/briefs
+      COMPETENCE_SERVICE_URL: http://competence-service:8080/api/competences
+    depends_on:
+      - mysql
+      - apprenant-service
+      - brief-service
+      - competence-service
+    networks:
+      - enaaskills_network
 
 volumes:
   mysql_data:
+
+networks:
+  enaaskills_network:
+    driver: bridge
