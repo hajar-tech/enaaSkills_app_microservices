@@ -1,5 +1,7 @@
 package com.enaaskills.apprenantservice.services;
 
+import com.enaaskills.apprenantservice.dtos.CompetenceValidationDto;
+import com.enaaskills.apprenantservice.dtos.RenduDetailDto;
 import com.enaaskills.apprenantservice.dtos.RenduRequestDto;
 import com.enaaskills.apprenantservice.feign.BriefFeignClient;
 import com.enaaskills.apprenantservice.models.Apprenant;
@@ -9,6 +11,7 @@ import com.enaaskills.apprenantservice.repositories.RenduRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -50,4 +53,36 @@ public class RenduService {
         return renduRepository.save(rendu);
 
     }
+
+
+    public Rendu getById (Long id){
+        return renduRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Rendu non trouvé avec id " + id));
+    }
+
+    public RenduDetailDto getRenduDetail(Long id){
+        Rendu rendu = renduRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rendu non trouvé"));
+
+        Map<String, Object> briefData = briefFeignClient.getBriefsById(rendu.getIdBrief()).getBody();
+
+        String titre = (String) briefData.get("titre");
+//
+//        List<Long> competenceIds = ((List<?>) briefData.get("competenceIds")).stream()
+//                .map(idB -> ((Number) idB).longValue())
+//                .toList();
+//
+
+//        List<CompetenceValidationDto> competences =
+//                competenceService.getCompetencesWithValidation(competenceIds, rendu.getApprenant().getId());
+
+        return new RenduDetailDto(
+                rendu.getId(),
+                rendu.getContenu(),
+                rendu.getDateDepot(),
+                titre
+//                competences
+        );
+    }
+
 }
