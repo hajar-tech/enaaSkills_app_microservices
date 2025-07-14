@@ -1,6 +1,8 @@
 package com.enaaskills.validationservice.service;
 
+import com.enaaskills.validationservice.mapper.ValidationMapper;
 import com.enaaskills.validationservice.model.*;
+import com.enaaskills.validationservice.model.ValidationDTO;
 import com.enaaskills.validationservice.repository.ValidationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
