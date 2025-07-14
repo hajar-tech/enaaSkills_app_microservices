@@ -2,6 +2,7 @@ package com.enaaskills.briefservice.Controller;
 
 import com.enaaskills.briefservice.DTO.BriefDTO;
 import com.enaaskills.briefservice.DTO.BriefResponseDTO;
+import com.enaaskills.briefservice.DTO.CreateBriefRequestDTO;
 import com.enaaskills.briefservice.Mapper.BriefMapper;
 import com.enaaskills.briefservice.Model.Brief;
 import com.enaaskills.briefservice.Model.BriefCompetence;
@@ -65,7 +66,7 @@ public class BriefController {
     //post brief with skills
 
     @PostMapping("/with-competences")
-    public ResponseEntity<BriefResponseDTO> createWithCompetences(@RequestBody BriefDTO briefDTO){
+    public ResponseEntity<BriefResponseDTO> createWithCompetences(@RequestBody CreateBriefRequestDTO briefDTO){
         Brief saved = briefService.createBriefWithCompetences(briefDTO);
         return ResponseEntity.ok(BriefMapper.toResponseDTO(saved));
     }

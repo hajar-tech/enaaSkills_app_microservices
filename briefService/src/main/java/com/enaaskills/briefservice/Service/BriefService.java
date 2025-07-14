@@ -2,6 +2,7 @@ package com.enaaskills.briefservice.Service;
 
 
 import com.enaaskills.briefservice.DTO.BriefDTO;
+import com.enaaskills.briefservice.DTO.CreateBriefRequestDTO;
 import com.enaaskills.briefservice.FeignClient.CompetenceFeignClient;
 import com.enaaskills.briefservice.Model.Brief;
 import com.enaaskills.briefservice.Model.BriefCompetence;
@@ -58,12 +59,12 @@ public class BriefService {
 
 
 
-    public Brief createBriefWithCompetences(BriefDTO briefdto) {
+    public Brief createBriefWithCompetences(CreateBriefRequestDTO briefdto) {
         //creat brief
         Brief brief = new Brief();
         brief.setTitle(briefdto.title());
         brief.setDescription(briefdto.description());
-        brief.setDateLimit(briefdto.dateLimite());
+        brief.setDateLimit(briefdto.dateLimit());
         Brief savedBrief = briefRepository.save(brief);
 
         //associer les competences

@@ -6,8 +6,8 @@ import java.util.List;
 public record BriefDTO (
         String title,
         String description,
-        LocalDate dateLimite,
-        List<Long> competenceIds){
+        LocalDate dateLimite
+){
 
 
 
