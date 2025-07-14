@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  apprenant-service:
+    build: .
+    container_name: apprenant-service
+    ports:
+      - "8081:8080" # http://localhost:8081 dans ton navigateur
+    networks:
+      - enaa-network
+
+networks:
+  enaa-network:
+    driver: bridge
