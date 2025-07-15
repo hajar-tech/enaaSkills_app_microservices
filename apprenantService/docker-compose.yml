@@ -1,8 +1,11 @@
 version: '3.8'
 
+# Déclare un service appelé apprenant-service, et construit l’image à partir
+  #du Dockerfile situé dans le même dossier (.).
 services:
   apprenant-service:
     build: .
+    #Nom du container Docker
     container_name: apprenant-service
     ports:
       - "8081:8080" # http://localhost:8081 dans ton navigateur
