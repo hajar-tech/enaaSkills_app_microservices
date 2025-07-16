@@ -1,10 +1,9 @@
-package com.enaaskills.competenceservice.dtos;
-
-
+package com.enaaskills.briefservice.DTO;
 
 import java.util.List;
 
 public record CompetenceDto(
+
         Long id,
         String code,
         String titre,

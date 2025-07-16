@@ -48,4 +48,6 @@ public class Brief {
     public void setDateLimit(LocalDate dateLimit) {
         this.dateLimit = dateLimit;
     }
+
+
 }

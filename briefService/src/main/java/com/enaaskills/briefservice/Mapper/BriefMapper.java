@@ -8,7 +8,7 @@ public class BriefMapper {
 
     public static Brief toEntity(BriefDTO briefDTO) {
         Brief brief = new Brief();
-        brief.setTitle(briefDTO.titre());
+        brief.setTitle(briefDTO.title());
         brief.setDescription(briefDTO.description());
         brief.setDateLimit(briefDTO.dateLimite());
         return brief;

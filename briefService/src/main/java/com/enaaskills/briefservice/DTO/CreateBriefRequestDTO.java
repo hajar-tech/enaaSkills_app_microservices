@@ -3,13 +3,12 @@ package com.enaaskills.briefservice.DTO;
 import java.time.LocalDate;
 import java.util.List;
 
-public record BriefDTO (
+public record CreateBriefRequestDTO(
+
         String title,
         String description,
-        LocalDate dateLimite
-){
+        LocalDate dateLimit,
+        List<Long> competenceIds
 
-
-
-
+) {
 }
