@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RenduRepository extends JpaRepository<Rendu , Long> {
-    List<Rendu> findByApprenantId(Long apprenantId);
+    List<Rendu> findByIdApprenant(Long id);
 }

@@ -1,9 +1,11 @@
 package com.enaaskills.authservice.controllers;
 
 
+import com.enaaskills.authservice.dtos.ApprenantDto;
 import com.enaaskills.authservice.dtos.LoginRequest;
 import com.enaaskills.authservice.dtos.LoginResponse;
 import com.enaaskills.authservice.dtos.RegisterRequest;
+import com.enaaskills.authservice.models.Apprenant;
 import com.enaaskills.authservice.securityService.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +40,16 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+
+    @GetMapping("/apprenants/{id}")
+    public ResponseEntity<ApprenantDto> getApprenantById(@PathVariable Long id) {
+        try {
+            Apprenant apprenant = authService.getApprenantById(id);
+            return ResponseEntity.ok(new ApprenantDto(apprenant.getId(),apprenant.getNomComplet()));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -66,4 +66,13 @@ public class AuthService {
 
     }
 
+
+    public Apprenant getApprenantById (Long id){
+        return userRepository.findById(id)
+                .filter(user -> user instanceof Apprenant)
+                .map(user -> (Apprenant) user)
+                .orElseThrow(()-> new RuntimeException("Apprenant introuvable avec id = \" + id"));
+    }
+
+
 }
