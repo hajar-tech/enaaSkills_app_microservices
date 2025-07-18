@@ -8,7 +8,7 @@ public record RenduDetailDto (
         String contenu,
         LocalDate deteDepot,
         String briefTitre
-        //List<CompetenceValidationDto> competences,
+        //List<Long> competencesIds,
 ){
 
 }
