@@ -1,30 +1,29 @@
 package com.enaaskills.apprenantservice.services;
 
-import com.enaaskills.apprenantservice.dtos.CompetenceValidationDto;
 import com.enaaskills.apprenantservice.dtos.RenduDetailDto;
 import com.enaaskills.apprenantservice.dtos.RenduRequestDto;
+import com.enaaskills.apprenantservice.feign.ApprenantClient;
+import com.enaaskills.apprenantservice.feign.ApprenantDto;
 import com.enaaskills.apprenantservice.feign.BriefFeignClient;
-import com.enaaskills.apprenantservice.models.Apprenant;
 import com.enaaskills.apprenantservice.models.Rendu;
-import com.enaaskills.apprenantservice.repositories.ApprenantRepository;
 import com.enaaskills.apprenantservice.repositories.RenduRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
 public class RenduService {
 
     private final BriefFeignClient briefFeignClient;
-    private final ApprenantRepository apprenantRepository;
+    private final ApprenantClient apprenantClient;
     private final RenduRepository renduRepository;
 
-    public RenduService(BriefFeignClient briefFeignClient, ApprenantRepository apprenantRepository, RenduRepository renduRepository) {
+    public RenduService(ApprenantClient apprenantClient, BriefFeignClient briefFeignClient,RenduRepository renduRepository) {
         this.briefFeignClient = briefFeignClient;
-        this.apprenantRepository = apprenantRepository;
+
         this.renduRepository = renduRepository;
+        this.apprenantClient = apprenantClient;
     }
 
     public Rendu createRendu(RenduRequestDto dto){
@@ -36,8 +35,14 @@ public class RenduService {
         }
 
         // 2. Vérifier que l'apprenant existe
-        Apprenant apprenant = apprenantRepository.findById(dto.idApprenant())
-                .orElseThrow(() -> new RuntimeException("Apprenant introuvable"));
+        ResponseEntity<ApprenantDto> apprenant = apprenantClient.getApprenantById(dto.idApprenant());
+        if (!apprenant.getStatusCode().is2xxSuccessful() || apprenant.getBody() == null) {
+            throw new RuntimeException("apprenant non trouvé");
+        }
+
+//        // 2. Vérifier que l'apprenant existe
+//        Apprenant apprenant = apprenantRepository.findById(dto.idApprenant())
+//                .orElseThrow(() -> new RuntimeException("Apprenant introuvable"));
 
 
 
@@ -47,7 +52,7 @@ public class RenduService {
         rendu.setDescription(dto.description());
         rendu.setDateDepot(dto.dateDepot());
         rendu.setIdBrief(dto.idBrief());
-        rendu.setApprenant(apprenant);
+        rendu.setIdApprenant(dto.idApprenant());
 
 
         return renduRepository.save(rendu);

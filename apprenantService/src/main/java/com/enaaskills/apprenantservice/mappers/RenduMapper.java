@@ -7,10 +7,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface RenduMapper {
-    @Mapping(source = "idApprenant", target = "apprenant.id")
+    @Mapping(source = "idApprenant", target = "idApprenant")
     Rendu toEntity(RenduResponseDto renduDto);
 
-    @Mapping(source = "apprenant.id", target = "idApprenant")
+    @Mapping(source = "idApprenant", target = "idApprenant")
     RenduResponseDto toDto(Rendu rendu);
 
 
