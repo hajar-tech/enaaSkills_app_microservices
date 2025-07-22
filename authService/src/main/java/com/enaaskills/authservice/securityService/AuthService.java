@@ -26,9 +26,10 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public void registerUser(RegisterRequest registerRequest) {
+    public void registerUser(RegisterRequest registerRequest) {//throws for exeptions {
         if (userRepository.findByEmail(registerRequest.email()).isPresent()){
             throw new RuntimeException("email déjà utilisé !");
+
         }
 
         Utilisateur utilisateur;
