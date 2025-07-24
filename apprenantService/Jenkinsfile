@@ -1,0 +1,28 @@
+pipeline {
+	agent any
+
+    tools {
+		maven 'Maven 3.8.5'  // à configurer dans Jenkins > Tools
+        jdk 'JDK 17'         // à configurer aussi
+    }
+
+    stages {
+		stage('Clone') {
+			steps {
+				git 'https://github.com/hajar-tech/enaaSkills_app_microservices.git'
+            }
+        }
+
+        stage('Build') {
+			steps {
+				sh 'mvn clean install'
+            }
+        }
+
+        stage('Tests') {
+			steps {
+				sh 'mvn test'
+            }
+        }
+    }
+}
