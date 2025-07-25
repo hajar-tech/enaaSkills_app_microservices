@@ -1,6 +1,6 @@
 package com.enaaskills.apprenantservice.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,12 +16,15 @@ public class Rendu {
     private  String description;
 
     private Long idBrief; // pour la liaison inter-service
+    private Long idApprenant;
 
-    @ManyToOne
-    @JoinColumn(name = "apprenant_id")
-    @JsonBackReference
-    private Apprenant apprenant;
+    public Long getIdApprenant() {
+        return idApprenant;
+    }
 
+    public void setIdApprenant(Long idApprenant) {
+        this.idApprenant = idApprenant;
+    }
 
     public Long getId() {
         return id;
@@ -55,13 +58,6 @@ public class Rendu {
         this.idBrief = idBrief;
     }
 
-    public Apprenant getApprenant() {
-        return apprenant;
-    }
-
-    public void setApprenant(Apprenant apprenant) {
-        this.apprenant = apprenant;
-    }
 
     public String getDescription() {
         return description;

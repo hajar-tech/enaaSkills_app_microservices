@@ -21,8 +21,8 @@ class RenduServiceTest {
     @Autowired
     RenduService renduService;
 
-    @Autowired
-    ApprenantService apprenantService;
+//    @Autowired
+//    ApprenantService apprenantService;
 
     @Autowired
     BriefFeignClient briefFeignClient;

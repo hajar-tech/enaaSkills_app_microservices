@@ -26,9 +26,10 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public void registerUser(RegisterRequest registerRequest) {
+    public void registerUser(RegisterRequest registerRequest) {//throws for exeptions {
         if (userRepository.findByEmail(registerRequest.email()).isPresent()){
             throw new RuntimeException("email déjà utilisé !");
+
         }
 
         Utilisateur utilisateur;
@@ -65,5 +66,14 @@ public class AuthService {
 
 
     }
+
+
+    public Apprenant getApprenantById (Long id){
+        return userRepository.findById(id)
+                .filter(user -> user instanceof Apprenant)
+                .map(user -> (Apprenant) user)
+                .orElseThrow(()-> new RuntimeException("Apprenant introuvable avec id = \" + id"));
+    }
+
 
 }

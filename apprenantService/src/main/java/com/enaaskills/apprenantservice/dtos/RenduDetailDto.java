@@ -1,7 +1,7 @@
 package com.enaaskills.apprenantservice.dtos;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public record RenduDetailDto (
         Long id,
