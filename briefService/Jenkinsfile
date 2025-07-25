@@ -1,0 +1,32 @@
+pipeline {
+	agent any
+
+    tools {
+		maven 'Maven 3.8.9'
+        jdk 'JDK 17'
+    }
+
+    stages {
+		stage('Clone') {
+			steps {
+				git branch: 'main', url: 'https://github.com/hajar-tech/enaaSkills_app_microservices.git'
+            }
+        }
+
+        stage('Build briefService') {
+			steps {
+				dir('briefService') {
+					sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Tests briefService') {
+			steps {
+				dir('briefService') {
+					sh 'mvn test'
+                }
+            }
+        }
+    }
+}
