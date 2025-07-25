@@ -16,7 +16,7 @@ pipeline {
         stage('Build briefService') {
 			steps {
 				dir('briefService') {
-					sh 'mvn clean install'
+					bat 'mvn clean install'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Tests briefService') {
 			steps {
 				dir('briefService') {
-					sh 'mvn test'
+					bat 'mvn test'
                 }
             }
         }
