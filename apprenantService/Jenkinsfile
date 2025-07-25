@@ -13,15 +13,19 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build apprenantService') {
 			steps {
-				sh 'mvn clean install'
+				dir('apprenantService') {
+					sh 'mvn clean install'
+                }
             }
         }
 
-        stage('Tests') {
+        stage('Tests apprenantService') {
 			steps {
-				sh 'mvn test'
+				dir('apprenantService') {
+					sh 'mvn test'
+                }
             }
         }
     }
