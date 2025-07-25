@@ -1,15 +1,15 @@
 pipeline {
 	agent any
 
-   tools {
+    tools {
 		maven 'Maven 3.9.10'
-         jdk 'JDK 17'//configurer jdk
-}
+        jdk 'JDK 17'
+    }
 
     stages {
 		stage('Clone') {
 			steps {
-				git 'https://github.com/hajar-tech/enaaSkills_app_microservices.git'
+				git branch: 'main', url: 'https://github.com/hajar-tech/enaaSkills_app_microservices.git'
             }
         }
 
