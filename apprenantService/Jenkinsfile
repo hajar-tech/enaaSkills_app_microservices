@@ -1,10 +1,10 @@
 pipeline {
 	agent any
 
-    tools {
-		maven 'Maven 3.9.10'  // à configurer dans Jenkins > Tools
-        jdk 'JDK 23'         // à configurer aussi
-    }
+   tools {
+		maven 'Maven 3.9.10'
+         jdk 'JDK 17'
+}
 
     stages {
 		stage('Clone') {
