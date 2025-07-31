@@ -28,6 +28,10 @@ public class UserDetailsServiceImpl  implements UserDetailsService {
         // Utilise le nom de la classe comme rôle : CONDUCTEUR, EXPEDITEUR, ADMIN
         String role = user.getClass().getSimpleName().toLowerCase();
 
+
+        // Ajoute le préfixe ROLE_ exigé par Spring Security
+        //String roleWithPrefix = "ROLE_" + role;
+
         return  new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
