@@ -15,7 +15,8 @@ public class CrossConfig {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:4200")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("Authorization", "Content-Type", "Accept");
+                        .allowedHeaders("*")
+                        .allowCredentials(true); // facultatif mais utile pour les sessions/JWT
             }
         };
     }
