@@ -14,7 +14,7 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//chercher
     private Long id;
     private String nomComplet;
-    @Column(name = "email" , unique = true)
+    @Column(unique = true)
     private String email;
     @Size(min = 6) //new inf
     private String password;
